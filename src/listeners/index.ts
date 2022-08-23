@@ -1,14 +1,14 @@
 import { Server } from 'socket.io'
 import { ISocketHandler } from '../interfaces/ISocketHandler'
 
-import { TrackingHandler } from './tracking'
+import TrackingListener from './tracking'
 
-export default class Listener {
+export default class Listeners {
 
-  trackingHandler: TrackingHandler
+  trackingListener: TrackingListener
 
   constructor(private io: Server) {
-    this.trackingHandler = new TrackingHandler(this.io)
+    this.trackingListener = new TrackingListener(this.io)
   }
 
   private listen(namespace: string, handler: ISocketHandler) {
@@ -19,8 +19,8 @@ export default class Listener {
     }
   }
 
-  exec() {
-    this.listen('/tracking', this.trackingHandler)
+  routing() {
+    this.listen('/tracking', this.trackingListener)
   }
 
 }

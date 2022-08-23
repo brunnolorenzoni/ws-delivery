@@ -1,8 +1,7 @@
-import express, { Application } from "express";
+import express from "express";
 import { createServer, Server as HttpServer } from "http";
 import { Server as SocketServer } from "socket.io";
-import Listener from './listeners'
-import { TrackingHandler } from "./listeners/tracking";
+import Listeners from './listeners'
 
 class App {
   public http: HttpServer;
@@ -21,7 +20,7 @@ class App {
   }
 
   listeners() {
-    new Listener(this.io).exec()
+    new Listeners(this.io).routing()
   }
 }
 
