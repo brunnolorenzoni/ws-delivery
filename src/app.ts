@@ -21,10 +21,7 @@ class App {
   }
 
   listeners() {
-    const listener = new Listener(this.io)
-
-    const trackingHandler = new TrackingHandler(this.io)
-    listener.listen('/tracking', trackingHandler)
+    new Listener(this.io).exec()
   }
 }
 

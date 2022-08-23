@@ -1,14 +1,26 @@
 import { Server } from 'socket.io'
 import { ISocketHandler } from '../interfaces/ISocketHandler'
 
-export default class Listener {
-  constructor(private io: Server) {}
+import { TrackingHandler } from './tracking'
 
-  listen(namespace: string, handler: ISocketHandler) {
+export default class Listener {
+
+  trackingHandler: TrackingHandler
+
+  constructor(private io: Server) {
+    this.trackingHandler = new TrackingHandler(this.io)
+  }
+
+  private listen(namespace: string, handler: ISocketHandler) {
     try {
       handler.handle(this.io.of(namespace))
     } catch (err) {
       console.error(`listen function not found for ${namespace} namespace`)
     }
   }
+
+  exec() {
+    this.listen('/tracking', this.trackingHandler)
+  }
+
 }
