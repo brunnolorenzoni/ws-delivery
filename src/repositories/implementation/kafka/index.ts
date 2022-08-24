@@ -4,10 +4,10 @@ import IQueueingRepository from '../../IKafkaRepository';
 import ProducerProvider from '../../../infrastructure/kafka/Producer'; 
 import ConsumerProvider, { MessageProcessor } from '../../../infrastructure/kafka/Consumer';
 
-export default class DeliveryQueue implements IQueueingRepository {
+export default class KafkaRepository implements IQueueingRepository {
 
-  readonly producer: ProducerProvider;
-  readonly consumer: ConsumerProvider;
+  private producer: ProducerProvider;
+  private consumer: ConsumerProvider;
 
   constructor(private connection: Kafka) {
     this.producer = new ProducerProvider(this.connection)

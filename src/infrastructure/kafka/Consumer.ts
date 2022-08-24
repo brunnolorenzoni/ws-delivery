@@ -26,7 +26,6 @@ export default class ConsumerProvider {
       await this.consumer.run({
         eachMessage: async (messagePayload: EachMessagePayload) => {
           const { topic, message } = messagePayload
-          console.log(messagePayload)
           messageProcessor({
             topic,
             message: {
