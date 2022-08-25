@@ -1,18 +1,19 @@
-import express from "express";
+import express, { Application } from "express";
 import { createServer, Server as HttpServer } from "http";
-import { Server as SocketServer } from "socket.io";
+import { Server as SocketServer, Socket } from "socket.io";
 import Listeners from './listeners'
-
 class App {
   public http: HttpServer;
   public io: SocketServer;
+  public app: Application;
 
   constructor() {
-    this.http = createServer(express());
+    this.app = express()
+    this.http = createServer(this.app);
     this.io = new SocketServer(this.http, {
       path: '/',
       cors: {
-        origin: '*',
+        origin: /(localhost)+:[0-9]{4}/,
       }
     })
 
